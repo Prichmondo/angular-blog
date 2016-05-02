@@ -1,0 +1,25 @@
+<section class="posts-wrapper">
+    
+    <div class="loader" ng-if="loading">
+        <img src="assets/images/loader.gif" alt="">
+        <p>Loading Contents...</p>
+    </div>
+    
+    <div class="error" ng-if="error!=''">
+        <p ng-bind="error"></p>
+    </div>
+
+    <article class="post" ng-repeat="post in posts" ng-click="openPost(post)">
+        <div class="post-thumbnail">
+            <img ng-src="{{post.image_url}}" alt="{{post.title}}">
+        </div>
+        <div class="post-contents">
+            <header>
+                <h1 ng-bind="post.title"></h1>
+            </header>
+            <p ng-bind-html="post.description | abstract"></p>
+        </div>
+    </article>
+
+
+</section>

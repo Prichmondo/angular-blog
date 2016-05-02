@@ -1,0 +1,371 @@
+@import "compass/reset";
+@import "susy";
+@import "breakpoint";
+
+//Mixins
+@mixin transition($args) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+//Variables
+$brand-color1 : #007acc;
+$brand-color2 : #333;
+$brand-color5 : #909090;
+$brand-color3 : #ccc;
+$brand-color4 : #f1f1f1;
+
+$screen-sm : 500px;
+$screen-md : 700px;
+$screen-lg : 1024px;
+
+$susy: (
+    columns : 12,
+    container : 1024px,
+    math : fluid,
+    gutters : .4,
+    global-box-sizing : border-box
+);
+
+html {
+	overflow-y: scroll; 
+}
+
+body{
+    
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    
+    p {
+        line-height: 1.2em;
+    }
+    
+    @include susy-breakpoint($screen-md) {
+        font-size: 13px;
+    }
+    
+    @include susy-breakpoint($screen-lg) {
+        font-size: 15px;
+    }    
+}
+
+.menu-btn{
+    
+    display:block;
+    position: absolute;
+    right:gutter();
+    top:50%;
+    margin-top: -17px;
+    overflow: hidden;
+    width: 35px;
+    height: 28px;
+    
+    img{
+        position: absolute;
+        width: 80px;
+        
+        &.opened{
+            left:0px;    
+        }
+        
+        &.closed{
+            left:-45px;
+        }
+    }
+    
+    @include susy-breakpoint($screen-sm) {
+        display: none;
+    }
+}
+
+.main-header{
+    display: block;
+    position: relative;
+    background-color: $brand-color4;
+    
+    section{
+        @include container();
+        
+        h1{
+            font-size: 0.8em;
+            box-sizing: border-box;
+            padding: gutter()/2 gutter();
+            margin-top: gutter()*1.8;
+            border-left: 1px solid $brand-color2;
+            color: $brand-color5;
+            
+            i{
+                color: $brand-color2;
+            }
+            
+        }
+        
+        .company-logo{
+            max-width : 100%;
+            border:none;
+        }
+    
+        .logo-wrapper{
+            @include span(4 of 12);
+            box-sizing: border-box;
+            padding : gutter()/3 0px gutter()/3 gutter()/3;            
+        }
+        
+        .title-wrapper{
+            @include span(8 of 12 last);
+            box-sizing: border-box;
+            padding : gutter() 0px 0px 0px;
+        }
+
+        
+        @include susy-breakpoint($screen-sm) {
+            .logo-wrapper{
+                @include span(3 of 12);                
+            }
+            
+            .title-wrapper{
+                @include span(9 of 12 last);
+                padding : gutter() 0px 0px 0px;
+            }
+            
+            h1{
+                font-size: 1em;
+                margin-top: gutter()*0.8;
+            }
+        }
+        @include susy-breakpoint($screen-md) {
+            h1{
+                font-size: 1.2em;
+            }
+        }
+        @include susy-breakpoint($screen-lg) {
+           
+        }
+    }
+    
+}
+
+h2.page-title{
+    padding-bottom : gutter();
+    font-size : 1.8em;
+    color : $brand-color2;
+}
+
+.main-header:after{
+    content:'';
+    display: block;
+    height:5px;
+    background-color: $brand-color1;
+}
+
+main{
+    width:100%;
+    position:relative;
+    @include container();
+}
+nav.main-nav{
+    @include span(12 of 12);
+    @include transition(max-height .3s ease);
+    overflow: hidden;
+    
+    &.closed{
+        max-height: 0px;
+        @include susy-breakpoint($screen-sm) {
+            max-height: 1000px;
+        }
+    }
+    
+    &.opened{
+        max-height: 1000px;
+    }
+    
+    @include susy-breakpoint($screen-sm) {
+        @include span(4 of 12);
+        margin-top : 25px;
+        max-height: 1000px;
+    }
+    @include susy-breakpoint($screen-md) {
+        @include span(3 of 12);
+    }
+    
+    > ul{
+        border-bottom : 1px solid $brand-color3;
+        @include susy-breakpoint($screen-sm) {
+            border-bottom: none;
+        }
+    }
+    
+    li{
+        border-top : 1px solid $brand-color3;
+        
+        ul{
+            @include transition(max-height .3s ease);
+            overflow: hidden;
+            max-height:0px;
+        }
+        
+        &.expanded{
+            ul{
+                max-height:300px;
+            }
+        }    
+        
+        a{
+            text-decoration : none;
+            display : block;
+            padding : 10px gutter()*2;
+            font-size: 1.1em;
+            color : $brand-color2;
+        }
+        
+        a:hover, a.selected{
+            background-color : $brand-color4;
+        }
+        
+    }
+    li li a{
+        padding-left : 20px;
+    }
+}
+.main-content {
+    @include span(12 of 12);
+    
+    padding : gutter();
+    box-sizing: border-box;
+    
+    .view.ng-enter-stagger {
+        transition-delay: 1s;
+        transition-duration: 0s;
+    }
+    
+    .view.ng-animate {
+        @include transition(opacity .5s ease);
+    }
+    
+    .view.ng-enter{
+        opacity:0;
+    }
+    
+    .view.ng-enter.ng-enter-active{
+        opacity:1;    
+    }
+    
+    .view.ng-leave.ng-leave-active,
+    .view.ng-leave{
+        display:none;
+    }
+
+    /*
+    &.ng-leave.ng-leave-active,
+    &.ng-enter,
+    &.ng-move {
+        opacity:0;
+    }
+
+    &.ng-leave,
+    &.ng-move.ng-move-active,
+    &.ng-enter.ng-enter-active {
+        opacity:1;
+    }*/
+    
+    @include susy-breakpoint($screen-sm) {
+        @include span(8 of 12 last);
+    }
+    @include susy-breakpoint($screen-md) {
+        @include span(9 of 12 last);
+    }
+}
+
+.posts-wrapper article{
+    @include container();
+    @include transition(background-color .3s ease);
+    
+    padding: gutter();
+    box-sizing: border-box;
+    border-top: 1px solid $brand-color3;
+    cursor:pointer;
+    background-color : #fff;
+    
+    &:hover{
+        background-color : $brand-color4;
+    }
+    
+    .post-thumbnail{
+        @include span(12 of 12);
+        overflow: hidden;
+        
+        img {
+            display: block;
+            width: 100%;
+            margin-bottom: gutter(); 
+        }
+        
+        @include susy-breakpoint($screen-sm) {
+            //@include span(5 of 12);
+        }
+        @include susy-breakpoint($screen-md) {
+            @include span(4 of 12);
+            img {
+                position: relative;
+                width: auto; 
+                height: 100px;
+                margin-left : 50%;
+                left:-100%;
+                margin-bottom:0;  
+            }
+        }
+        @include susy-breakpoint($screen-lg) {
+            @include span(3 of 12);
+        }
+    }
+    .post-contents{
+        @include span(12 of 12 last);
+        margin-bottom: gutter();
+        
+        h1{
+            font-size: 1.1em;
+            padding-bottom: gutter()/2;
+            font-weight: 500;
+        }
+        
+        @include susy-breakpoint($screen-sm) {
+
+        }
+        @include susy-breakpoint($screen-md) {
+            @include span(8 of 12 last);
+        }
+        @include susy-breakpoint($screen-lg) {
+            @include span(9 of 12 last);
+        }
+        
+    }
+}
+
+.post-details{
+    
+    img{
+        width : 100%;
+    }
+    
+    p.post-description{
+        padding-top: gutter();
+        
+        h3{
+            font-size: 1.1em;
+            margin: gutter() 0px gutter()/2 0px;
+            font-weight: 700;
+        }
+    }    
+}
+
+.loader{
+    text-align: center;
+    
+    img{
+        display: inline-block;
+        width: 30px;
+    }
+}

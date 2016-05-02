@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="TheBlog">
+    <head>
+        <meta charset="UTF-8">
+        <title>The Blog</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-route/angular-route.js"></script>    
+        <script src="node_modules/angular-resource/angular-resource.min.js"></script>
+        <script src="node_modules/angular-filters/dist/angular-filters.min.js"></script>
+        <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+        <script src="node_modules/underscore/underscore.js"></script>
+        
+        <script src="app/main.js"></script>
+        <script src="app/routes.js"></script>
+        <script src="app/factories/blog-factories.js"></script>
+        <script src="app/controllers/blog-main.js"></script>
+        <script src="app/controllers/blog-home.js"></script>
+        <script src="app/controllers/blog-category.js"></script>
+        <script src="app/controllers/blog-post.js"></script>
+        <script src="app/directives/categories-nav.js"></script>
+        <script src="app/directives/blog-posts-list.js"></script>
+        <script src="app/filters/text-filters.js"></script>
+
+        <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png"/>
+        <link rel="stylesheet" href="assets/css/main.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>    
+    </head>
+    <body ng-controller="blogMain">
+        
+        <header class="main-header">
+            <section>
+                <a href="/#/" alt="company logo" class="logo-wrapper">
+                    <img class="company-logo" src="assets/images/logo.png" alt="">
+                </a>
+                <span class="title-wrapper">
+                    <h1><i>by</i>&nbsp;RICCARDO VOLPATO</h1>
+                </span>
+                <a href="" class="menu-btn" ng-click="menuClick()">
+                    <img src="./assets/images/menu.png" alt="" ng-class="(menuClosed) ? 'closed' : 'opened'">
+                </a>
+            </section>
+        </header>
+        <main>
+            <nav class="main-nav" ng-class="(menuClosed) ? 'closed' : 'opened'" categories-nav></nav>
+            <section class="main-content">
+                <div class="view" ng-view></div>
+            </section>
+        </main>
+        
+    </body>
+</html>

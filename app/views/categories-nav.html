@@ -1,0 +1,21 @@
+<ul>
+    <li>
+        <a href="/#/" ng-class="(currentCategoryId == 0) ? 'selected' : ''">Featured Posts</a>      
+    </li>
+    <li ng-repeat="category in categories | orderBy : 'title'"
+        ng-class="[(category.expanded) ? 'expanded' : '']"
+        ng-animate>
+        <a 
+            href="" ng-click="categoryClick(category)" ng-bind="category.title" 
+            ng-class="[($parent.currentCategoryId == category.id) ? 'selected' : '']"
+        ></a>
+        <ul>
+            <li ng-repeat="subCategory in category.children | orderBy : 'title'">
+                <a
+                    href="" ng-click="categoryClick(subCategory)" ng-bind="subCategory.title"
+                    ng-class="($parent.currentCategoryId == subCategory.id) ? 'selected' : ''"
+                ></a>
+            </li>
+        </ul>            
+    </li>
+</ul>
